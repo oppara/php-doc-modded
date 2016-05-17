@@ -128,6 +128,9 @@ if has ("user_commands")
   " the identifiers having an _ in the first place.
   if !exists('g:pdv_cfg_php4guessval') | let g:pdv_cfg_php4guessval = "protected" | endif
 
+  " Whether or not to automatically add the scope comment (1|0)
+  if !exists('g:pdv_cfg_Scope') | let g:pdv_cfg_Scope = 1 | endif
+
   "
   " Regular expressions
   "
@@ -385,11 +388,11 @@ if has ("user_commands")
     if l:final != ""
       exe l:txtBOL . g:pdv_cfg_Commentn . "@final" . g:pdv_cfg_EOL
     endif
-    if l:scope != ""
-      exe l:txtBOL . g:pdv_cfg_Commentn . "@access " . l:scope . g:pdv_cfg_EOL
-    endif
     if l:funcname != "Constructor"
       exe l:txtBOL . g:pdv_cfg_Commentn . "@return " . g:pdv_cfg_ReturnVal . g:pdv_cfg_EOL
+    endif
+    if l:scope != "" && g:pdv_cfg_Scope == 1
+      exe l:txtBOL . g:pdv_cfg_Commentn . "@access " . l:scope . g:pdv_cfg_EOL
     endif
 
     " Close the comment block.
